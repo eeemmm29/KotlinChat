@@ -1,9 +1,8 @@
 import java.io.File
-import javax.xml.crypto.Data
 
 fun showHelp() {
     val filePath = "help.txt"
-    val helpFile: File = File(filePath)
+    val helpFile = File(filePath)
     if (!helpFile.exists()) {
         helpFile.createNewFile()
         println("File not found: $filePath")
@@ -30,7 +29,7 @@ fun getAllUsers() {
 
 fun addMessage() {
     print("Enter your name: ")
-    val senderUsername = readLine() ?: "Unknown"
+    val senderUsername = readlnOrNull() ?: "Unknown"
 
     print("Enter your message: ")
     val content = readLine() ?: ""
