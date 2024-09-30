@@ -187,13 +187,10 @@ object DatabaseManager {
         statement?.close()
     }
 
-
     // Function to add a message to the database
     fun addMessage(senderUsername: String, content: String) {
         // Get sender ID from username
-        val senderId = getUserId(senderUsername)
-
-        if (senderId == null) return
+        val senderId = getUserId(senderUsername) ?: return
 
         // Prepare the SQL insert statement
         val query = "INSERT INTO messages (sender_id, content, timestamp) VALUES (?, ?, ?)"
