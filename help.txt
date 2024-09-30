@@ -1,0 +1,7 @@
+help : shows all available commands
+adduser : add a new user
+getuser : get info about a user
+getallusers : get info about all users
+add : add a new message
+getmessages : get all messages
+exit : exit the program

@@ -1,17 +1,71 @@
 import java.io.File
-import java.time.LocalDateTime
+import javax.xml.crypto.Data
+
+fun showHelp() {
+    val filePath = "help.txt"
+    val helpFile: File = File(filePath)
+    if (!helpFile.exists()) {
+        helpFile.createNewFile()
+        println("File not found: $filePath")
+        return
+    }
+    println(helpFile.readText())
+}
+
+fun addUser() {
+    print("Enter the username: ")
+    val username = readLine()
+    DatabaseManager.addUser(username)
+}
+
+fun getUser() {
+    print("Enter the username: ")
+    val username = readLine()
+    DatabaseManager.getUser(username)
+}
+
+fun getAllUsers() {
+    DatabaseManager.getAllUsers()
+}
+
+fun addMessage() {
+    print("Enter your name: ")
+    val senderUsername = readLine() ?: "Unknown"
+
+    print("Enter your message: ")
+    val content = readLine() ?: ""
+
+    DatabaseManager.addMessage(senderUsername, content)
+}
+
+fun getMessages() {
+    // Retrieve and print all messages
+    DatabaseManager.getMessages()
+}
+
+fun exit() {
+    // Disconnect from the database when done
+    DatabaseManager.disconnect()
+}
 
 fun main() {
-
-    DatabaseManager.connect()
-
     while (true) {
-        print("Enter your name: ")
-        val sender = readLine() ?: "Unknown"
+        println("What would you like to do?")
+        val command = readLine()
 
-        print("Enter your message: ")
-        val content = readLine() ?: ""
-
-        DatabaseManager.addMessage(sender, content)
+        when (command) {
+            "" -> continue
+            "help" -> showHelp()
+            "adduser" -> addUser()
+            "getuser" -> getUser()
+            "getallusers" -> getAllUsers()
+            "add" -> addMessage()
+            "getmessages" -> getMessages()
+            "exit" -> {
+                exit()
+                break
+            }
+            else -> println("Invalid command")
+        }
     }
 }
